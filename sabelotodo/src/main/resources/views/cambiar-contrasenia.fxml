@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="350.0" prefWidth="400.0" styleClass="recover-pane" stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.CambiarContraseniaController">
+
+    <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefWidth="300.0" spacing="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+        
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Cambiar Contraseña" />
+
+        <PasswordField fx:id="nuevaContraseniaField" maxWidth="250.0" promptText="Nueva contraseña" />
+        <PasswordField fx:id="confirmarContraseniaField" maxWidth="250.0" promptText="Confirmar contraseña" />
+
+        <Label fx:id="infoLabel" maxWidth="250.0" visible="false" wrapText="true" />
+
+        <Button maxWidth="250.0" onAction="#handleGuardar" text="Guardar nueva contraseña" />
+        <Button maxWidth="250.0" onAction="#handleVolverLogin" text="Volver al login" />
+    </VBox>
+</AnchorPane>

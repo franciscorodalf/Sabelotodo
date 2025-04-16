@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.PreguntaController">
+
+    <VBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+
+        <!-- Título categoría -->
+        <Label fx:id="lblCategoria" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Categoría: ---" />
+
+        <!-- Pregunta -->
+        <Label fx:id="lblPregunta" alignment="CENTER" maxWidth="500.0" style="-fx-font-size: 16px;" text="Aquí va la pregunta..." wrapText="true" />
+
+        <!-- Opciones de respuesta -->
+        <VBox alignment="CENTER" spacing="10">
+            <Button fx:id="btnA" maxWidth="400.0" onAction="#handleRespuesta" wrapText="true" />
+            <Button fx:id="btnB" maxWidth="400.0" onAction="#handleRespuesta" wrapText="true" />
+            <Button fx:id="btnC" maxWidth="400.0" onAction="#handleRespuesta" wrapText="true" />
+            <Button fx:id="btnD" maxWidth="400.0" onAction="#handleRespuesta" wrapText="true" />
+        </VBox>
+
+        <!-- Resultado correcto / incorrecto -->
+        <Label fx:id="lblResultado" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="" visible="false" />
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.ResultadoController"
+            prefWidth="500.0" prefHeight="400.0">
+
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="40.0"
+          AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+
+        <Label fx:id="lblTituloResultado"
+               text="¡Ganaste!"
+               style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+        <Label fx:id="lblCategoriasAcertadas"
+               text="Categorías acertadas: 3/6"
+               style="-fx-font-size: 16px;" />
+
+        <Label fx:id="lblPuntos"
+               text="Puntos: 120"
+               style="-fx-font-size: 16px;" />
+
+        <Label fx:id="lblTiempo"
+               text="Tiempo total: 01:42"
+               style="-fx-font-size: 16px;" />
+
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="Volver al menú" onAction="#handleVolverMenu" />
+            <Button text="Jugar otra vez" onAction="#handleReiniciarPartida" />
+        </HBox>
+    </VBox>
+</AnchorPane>

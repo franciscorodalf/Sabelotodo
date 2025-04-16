@@ -1,0 +1,84 @@
+/* Fondo de la aplicación */
+.root {
+    -fx-background-color: #F5F5F5;
+    -fx-font-family: "Arial";
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #6200EE;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+    -fx-transition: all 0.3s ease;
+}
+
+.button:hover {
+    -fx-background-color: #3700B3; /* Hover */
+}
+
+/* Mensajes */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #212121; /* Color de texto */
+}
+
+/* Mensajes de error */
+.label-error {
+    -fx-text-fill: #F44336; /* Rojo para error */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Mensajes de éxito */
+.label-success {
+    -fx-text-fill: #4CAF50; /* Verde para éxito */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Campos de texto */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #BDBDBD;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Campos de texto seleccionados */
+.text-field:focused {
+    -fx-border-color: #6200EE;
+}
+
+/* Contenedores con espaciado */
+.vbox {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+/* Contenedores dentro de la ruleta */
+.ruleta-pane {
+    -fx-background-color: #6200EE;
+    -fx-background-radius: 15px;
+    -fx-padding: 20px;
+}
+
+/* Barra de progreso */
+.progress-bar {
+    -fx-background-color: #6200EE;
+    -fx-background-radius: 5px;
+}
+
+/* Ventanas de la aplicación */
+.stage {
+    -fx-background-color: white;
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0, 5, 5);
+}

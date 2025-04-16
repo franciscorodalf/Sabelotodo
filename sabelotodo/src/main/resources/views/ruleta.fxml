@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.RuletaController">
+
+    <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+
+        <!-- Título -->
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Gira la ruleta" />
+
+        <!-- Categoría que gira -->
+        <Label fx:id="labelCategoria" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a2a2a;" text="Categoría" />
+
+        <!-- Botón para girar -->
+        <Button fx:id="btnGirar" maxWidth="200.0" onAction="#handleGirarCategoria" text="Girar ruleta" />
+
+        <!-- Botón para jugar (se activa al detenerse la ruleta) -->
+        <Button fx:id="btnJugar" maxWidth="200.0" onAction="#handleJugar" text="Ir a pregunta" visible="false" />
+
+        <!-- Botón para volver al menú -->
+        <Button fx:id="btnVolver" maxWidth="200.0" onAction="#handleVolverMenu" text="Volver al menú" />
+
+    </VBox>
+</AnchorPane>
