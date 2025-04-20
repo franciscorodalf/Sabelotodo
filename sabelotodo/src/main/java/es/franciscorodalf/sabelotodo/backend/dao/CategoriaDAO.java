@@ -13,6 +13,11 @@ public class CategoriaDAO extends Conexion {
         super();
     }
 
+    /**
+     * Inserta una nueva categoría en la base de datos.
+     * @param categoria La categoría a insertar.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
     public List<Categoria> obtenerTodas() {
         List<Categoria> categorias = new ArrayList<Categoria>();
         String sql = "SELECT * FROM categorias";
@@ -44,6 +49,11 @@ public class CategoriaDAO extends Conexion {
         return categorias;
     }
 
+    /**
+     * Inserta una nueva categoría en la base de datos.
+     * @param categoria La categoría a insertar.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
     public Categoria buscarPorNombre(String nombre) {
         Categoria categoria = null;
         String sql = "SELECT * FROM categorias WHERE nombre = ?";

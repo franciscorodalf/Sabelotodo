@@ -33,54 +33,76 @@ public class RuletaController {
 
     private boolean ruletaGirada = false;
 
+    /**
+     * Establece el usuario y carga las categorías restantes.
+     *
+     * @param usuario El usuario actual.
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         CategoriaDAO dao = new CategoriaDAO();
         this.categoriasRestantes = new ArrayList<>(dao.obtenerTodas());
     }
 
+    /**
+     * Establece las categorías restantes para el juego.
+     *
+     * @param categorias La lista de categorías restantes.
+     */
     public void setCategoriasRestantes(List<Categoria> categorias) {
         this.categoriasRestantes = categorias;
     }
+
+    /**
+     * Maneja la acción de girar la ruleta.
+     * Selecciona una categoría aleatoria y muestra su nombre en la interfaz.
+     * Desactiva el botón "Girar" y muestra el botón "Jugar".
+     */
     @FXML
     private void handleGirarCategoria() {
         if (ruletaGirada || categoriasRestantes == null || categoriasRestantes.isEmpty()) {
             // Si ya se ha girado la ruleta o no quedan categorías
             if (categoriasRestantes.isEmpty()) {
                 labelCategoria.setText("¡Todas completadas! ¡Felicidades!");
-                btnGirar.setDisable(true);  // Desactiva el botón "Girar"
+                btnGirar.setDisable(true); // Desactiva el botón "Girar"
             }
-            return;  // No deja volver a girar
+            return; // No deja volver a girar
         }
-    
-        ruletaGirada = true;  // Marcar que ya se ha girado la ruleta
-        btnGirar.setDisable(true);  // Desactivar botón "Girar"
-        btnJugar.setVisible(false);  // Ocultar botón "Jugar" mientras gira
-    
+
+        ruletaGirada = true; // Marcar que ya se ha girado la ruleta
+        btnGirar.setDisable(true); // Desactivar botón "Girar"
+        btnJugar.setVisible(false); // Ocultar botón "Jugar" mientras gira
+
         Random random = new Random();
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
-    
-        final int[] ciclos = {0};
+
+        final int[] ciclos = { 0 };
         final int ciclosTotales = 40;
-    
+
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(80), ev -> {
             Categoria randomCategoria = categoriasRestantes.get(random.nextInt(categoriasRestantes.size()));
             labelCategoria.setText(randomCategoria.getNombre());
-    
+
             ciclos[0]++;
             if (ciclos[0] >= ciclosTotales) {
                 categoriaSeleccionada = randomCategoria;
-                btnJugar.setVisible(true);  // Mostrar el botón "Jugar" una vez finalice la ruleta
-                btnGirar.setDisable(false);  // Rehabilitar el botón de girar para futuras rondas
-                timeline.stop();  // Detener la animación de la ruleta
+                btnJugar.setVisible(true); // Mostrar el botón "Jugar" una vez finalice la ruleta
+                btnGirar.setDisable(false); // Rehabilitar el botón de girar para futuras rondas
+                timeline.stop(); // Detener la animación de la ruleta
             }
         }));
-    
-        timeline.play();  // Iniciar la animación de la ruleta
-    }
-    
 
+        timeline.play(); // Iniciar la animación de la ruleta
+    }
+
+    /**
+     * Maneja la acción de jugar con la categoría seleccionada.
+     * Carga la vista de preguntas y pasa el usuario, la categoría seleccionada y las
+     * categorías restantes.
+     *
+     * @param event El evento generado al hacer clic en el botón "Jugar".
+     */
     @FXML
     private void handleJugar(ActionEvent event) {
         try {
@@ -99,6 +121,12 @@ public class RuletaController {
         }
     }
 
+    /**
+     * Maneja la acción de volver al menú principal.
+     * Carga la vista del menú y pasa el usuario al controlador del menú.
+     *
+     * @param event El evento generado al hacer clic en el botón "Volver al menú".
+     */
     @FXML
     private void handleVolverMenu(ActionEvent event) {
         try {

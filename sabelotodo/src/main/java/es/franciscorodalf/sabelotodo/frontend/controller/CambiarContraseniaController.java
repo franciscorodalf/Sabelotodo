@@ -17,16 +17,31 @@ import java.io.IOException;
 
 public class CambiarContraseniaController {
 
-    @FXML private PasswordField nuevaContraseniaField;
-    @FXML private PasswordField confirmarContraseniaField;
-    @FXML private Label infoLabel;
+    @FXML
+    private PasswordField nuevaContraseniaField;
+    @FXML
+    private PasswordField confirmarContraseniaField;
+    @FXML
+    private Label infoLabel;
 
     private Usuario usuario;
 
+    /**
+     * Establece el usuario que realizará el cambio de contraseña.
+     *
+     * @param usuario El usuario que realizará la operación de cambio de contraseña.
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     * Maneja la acción de guardar el cambio de contraseña.
+     * Valida los campos y realiza la actualización de la contraseña en la base de
+     * datos.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Guardar"
+     */
     @FXML
     private void handleGuardar(ActionEvent event) {
         String nueva = nuevaContraseniaField.getText();
@@ -65,6 +80,14 @@ public class CambiarContraseniaController {
         }
     }
 
+    /**
+     * Maneja la acción de volver a la pantalla de login.
+     * Este método es llamado cuando el usuario hace clic en el botón de "Volver al
+     * login".
+     *
+     * @param event El evento generado al hacer clic en el botón de "Volver al
+     *              login"
+     */
     @FXML
     private void handleVolverLogin(ActionEvent event) {
         try {

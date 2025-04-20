@@ -11,7 +11,11 @@ public class PreguntaDAO extends Conexion {
     public PreguntaDAO() {
         super();
     }
-
+    /**
+     * Inserta una nueva pregunta en la base de datos.
+     * @param pregunta La pregunta a insertar.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
     public Pregunta obtenerPreguntaAleatoriaPorCategoria(String nombreCategoria) {
         Pregunta pregunta = null;
 

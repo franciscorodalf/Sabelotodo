@@ -16,18 +16,31 @@ import java.util.List;
 
 public class MenuController {
 
-    @FXML private Label lblNombreUsuario;
-    @FXML private Label lblEmail;
-    @FXML private Label lblPartidasJugadas;
-    @FXML private Label lblPuntosTotales;
+    @FXML
+    private Label lblNombreUsuario;
+    @FXML
+    private Label lblEmail;
+    @FXML
+    private Label lblPartidasJugadas;
+    @FXML
+    private Label lblPuntosTotales;
 
     private Usuario usuario;
 
+    /**
+     * Establece el usuario que accede al menú y carga sus datos.
+     *
+     * @param usuario El usuario cuyo perfil será cargado en el menú.
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         cargarDatos();
     }
 
+    /**
+     * Carga los datos del usuario, como su nombre, correo, número de partidas
+     * jugadas y puntos totales.
+     */
     private void cargarDatos() {
         if (usuario != null) {
             lblNombreUsuario.setText("Usuario: " + usuario.getUsername());
@@ -47,15 +60,22 @@ public class MenuController {
         }
     }
 
+    /**
+     * Maneja la acción de editar el perfil del usuario.
+     * Carga la pantalla de edición de perfil y pasa el usuario al controlador de la
+     * vista de edición.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Editar perfil".
+     */
     @FXML
     private void handleEditarPerfil(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/editar-usuario.fxml"));
             Scene scene = new Scene(loader.load());
-    
+
             EditarPerfilController controller = loader.getController();
-            controller.setUsuario(usuario); // si usas paso de objeto
-    
+            controller.setUsuario(usuario);
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -63,15 +83,19 @@ public class MenuController {
             e.printStackTrace();
         }
     }
-    
 
+    /**
+     * Maneja la acción de comenzar el juego.
+     * Carga la vista de la ruleta y pasa el usuario al controlador de la ruleta.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Jugar".
+     */
     @FXML
     private void handleJugar(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ruleta.fxml"));
             Scene scene = new Scene(loader.load());
 
-            // Pasar usuario
             RuletaController controller = loader.getController();
             controller.setUsuario(usuario);
 
@@ -83,6 +107,12 @@ public class MenuController {
         }
     }
 
+    /**
+     * Maneja la acción de cerrar sesión.
+     * Redirige al usuario de vuelta a la pantalla de login.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Cerrar sesión".
+     */
     @FXML
     private void handleCerrarSesion(ActionEvent event) {
         try {

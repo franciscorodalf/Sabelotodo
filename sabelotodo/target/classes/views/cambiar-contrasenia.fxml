@@ -15,6 +15,7 @@
         <PasswordField fx:id="nuevaContraseniaField" maxWidth="250.0" promptText="Nueva contraseña" />
         <PasswordField fx:id="confirmarContraseniaField" maxWidth="250.0" promptText="Confirmar contraseña" />
 
+
         <Label fx:id="infoLabel" maxWidth="250.0" visible="false" wrapText="true" />
 
         <Button maxWidth="250.0" onAction="#handleGuardar" text="Guardar nueva contraseña" />

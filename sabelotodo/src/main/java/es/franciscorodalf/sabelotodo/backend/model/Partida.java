@@ -13,6 +13,13 @@ public class Partida {
     public Partida() {
     }
 
+    public Partida(int id, Usuario usuario, int puntaje, String dificultad) {
+        this.id = id;
+        this.usuario = usuario;
+        this.puntaje = puntaje;
+        this.dificultad = dificultad;
+    }
+
     public Partida(int id, Usuario usuario, int puntaje, String dificultad, LocalDateTime fecha) {
         this.id = id;
         this.usuario = usuario;

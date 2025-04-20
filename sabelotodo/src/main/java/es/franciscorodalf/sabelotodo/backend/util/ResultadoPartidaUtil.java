@@ -10,6 +10,7 @@ public class ResultadoPartidaUtil {
     private int puntaje;
     private String tiempoTotal;
 
+
     public ResultadoPartidaUtil(Usuario usuario, List<String> categoriasAcertadas, int puntaje, String tiempoTotal) {
         this.usuario = usuario;
         this.categoriasAcertadas = categoriasAcertadas;

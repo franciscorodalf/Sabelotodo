@@ -28,6 +28,12 @@ public class RegistroController {
     @FXML
     private Label infoLabel;
 
+    /**
+     * Maneja la acción de registrar un nuevo usuario.
+     * Valida los campos y registra al usuario en la base de datos.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Registrar"
+     */
     @FXML
     private void handleRegistrar(ActionEvent event) {
         String username = usernameField.getText();
@@ -72,7 +78,7 @@ public class RegistroController {
 
             new Thread(() -> {
                 try {
-                    Thread.sleep(2000); 
+                    Thread.sleep(2000);
                     javafx.application.Platform.runLater(() -> {
                         try {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
@@ -95,6 +101,14 @@ public class RegistroController {
         }
     }
 
+    /**
+     * Maneja la acción de volver a la pantalla de login.
+     * Este método es llamado cuando el usuario hace clic en el botón de "Volver al
+     * login".
+     *
+     * @param event El evento generado al hacer clic en el botón de "Volver al
+     *              login"
+     */
     @FXML
     private void handleVolverLogin(ActionEvent event) {
         try {

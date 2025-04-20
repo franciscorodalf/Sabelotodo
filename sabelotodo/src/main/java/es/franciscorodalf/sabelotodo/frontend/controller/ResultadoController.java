@@ -26,11 +26,20 @@ public class ResultadoController {
 
     private ResultadoPartidaUtil resultado;
 
+    /**
+     * Establece el resultado de la partida y carga los datos en la interfaz.
+     *
+     * @param resultado El resultado de la partida.
+     */
     public void setResultado(ResultadoPartidaUtil resultado) {
         this.resultado = resultado;
         cargarDatos();
     }
 
+    /**
+     * Carga los datos del resultado de la partida en la interfaz.
+     * Muestra el número de categorías acertadas, puntos totales y tiempo total.
+     */
     private void cargarDatos() {
         if (resultado != null) {
             Usuario usuario = resultado.getUsuario();
@@ -46,6 +55,11 @@ public class ResultadoController {
         }
     }
 
+    /**
+     * Maneja la acción de volver al menú principal.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Volver al menú"
+     */
     @FXML
     private void handleVolverMenu(ActionEvent event) {
         try {
@@ -63,6 +77,12 @@ public class ResultadoController {
         }
     }
 
+    /**
+     * Maneja la acción de reiniciar la partida.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Reiniciar
+     *              partida"
+     */
     @FXML
     private void handleReiniciarPartida(ActionEvent event) {
         try {

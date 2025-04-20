@@ -44,6 +44,14 @@ public class PreguntaController {
     private List<Categoria> categoriasRestantes;
     private Pregunta pregunta;
 
+    /**
+     * Establece el usuario y la categoría seleccionada.
+     * Carga una pregunta aleatoria de la categoría seleccionada.
+     *
+     * @param usuario             El usuario actual.
+     * @param categoria           La categoría seleccionada.
+     * @param categoriasRestantes Las categorías restantes para el juego.
+     */
     public void setUsuarioYCategoria(Usuario usuario, Categoria categoria, List<Categoria> categoriasRestantes) {
         this.usuario = usuario;
         this.categoria = categoria;
@@ -51,6 +59,10 @@ public class PreguntaController {
         cargarPregunta();
     }
 
+    /**
+     * Carga una pregunta aleatoria de la categoría seleccionada.
+     * Si no se puede cargar la pregunta, desactiva los botones de respuesta.
+     */
     private void cargarPregunta() {
         lblResultado.setVisible(false);
 
@@ -80,6 +92,16 @@ public class PreguntaController {
         btnD.setText(opciones.get(3));
     }
 
+    /**
+     * Maneja la acción de respuesta a la pregunta.
+     * Desactiva los botones de respuesta y verifica si la respuesta es correcta.
+     * Si es correcta, muestra un mensaje de éxito y avanza a la siguiente
+     * categoría.
+     * Si es incorrecta, muestra un mensaje de error y vuelve al menú principal.
+     *
+     * @param event El evento generado al hacer clic en uno de los botones de
+     *              respuesta.
+     */
     @FXML
     private void handleRespuesta(ActionEvent event) {
         Button boton = (Button) event.getSource();
@@ -89,7 +111,6 @@ public class PreguntaController {
 
         String respuestaCorrecta = "";
 
-        // Obtener la respuesta correcta de la base de datos
         switch (pregunta.getRespuestaCorrecta()) {
             case "A":
                 respuestaCorrecta = pregunta.getOpcionA();
@@ -105,31 +126,25 @@ public class PreguntaController {
                 break;
         }
 
-        // Comparar respuesta del usuario con la correcta
         if (respuesta.trim().equalsIgnoreCase(respuestaCorrecta.trim())) {
             lblResultado.setText("✅ ¡Correcto!");
             lblResultado.setStyle("-fx-text-fill: green;");
             lblResultado.setVisible(true);
 
-            // Eliminar la categoría respondida
             categoriasRestantes.removeIf(cat -> cat.getId() == categoria.getId());
 
-            // Si no quedan categorías, mostrar victoria y registrar partida
             if (categoriasRestantes.isEmpty()) {
                 lblResultado.setText("🎉 ¡Felicidades, has completado todas las categorías!");
                 int totalCategorias = new CategoriaDAO().obtenerTodas().size();
 
-                // Registrar la partida con puntos y categorías acertadas
                 new PartidaDAO().registrarPartida(usuario.getId(), 100, totalCategorias);
 
-                // Esperar unos segundos antes de volver al menú
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(e -> volverAlMenu());
                 delay.play();
                 return;
             }
 
-            // Si acertó, vuelve a girar la ruleta
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(e -> volverARuleta());
             delay.play();
@@ -139,16 +154,17 @@ public class PreguntaController {
             lblResultado.setStyle("-fx-text-fill: red;");
             lblResultado.setVisible(true);
 
-            // Registrar la partida fallida
             new PartidaDAO().registrarPartida(usuario.getId(), 0, 0);
 
-            // Espera un poco y luego volver al menú
             PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
             delay.setOnFinished(e -> volverAlMenu());
             delay.play();
         }
     }
 
+    /**
+     * Desactiva los botones de respuesta.
+     */
     private void desactivarBotones() {
         btnA.setDisable(true);
         btnB.setDisable(true);
@@ -156,6 +172,11 @@ public class PreguntaController {
         btnD.setDisable(true);
     }
 
+    /**
+     * Vuelve a la pantalla de la ruleta después de responder la pregunta.
+     * Carga la pantalla de la ruleta y establece el usuario y las categorías
+     * restantes.
+     */
     private void volverARuleta() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ruleta.fxml"));
@@ -173,6 +194,10 @@ public class PreguntaController {
         }
     }
 
+    /**
+     * Vuelve al menú principal después de responder la pregunta.
+     * Carga la pantalla del menú y establece el usuario actual.
+     */
     private void volverAlMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/menu.fxml"));

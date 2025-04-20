@@ -12,6 +12,15 @@ public class UsuarioDAO extends Conexion {
         super();
     }
 
+    /**
+     * Inicia sesión con un usuario utilizando su correo o nombre de usuario y
+     * contraseña.
+     *
+     * @param identificador Correo o nombre de usuario.
+     * @param contrasenia   Contraseña del usuario.
+     * @return El objeto Usuario si las credenciales son correctas, null en caso
+     *         contrario.
+     */
     public Usuario login(String identificador, String contrasenia) {
         Usuario usuario = null;
 
@@ -49,6 +58,12 @@ public class UsuarioDAO extends Conexion {
         return usuario;
     }
 
+    /**
+     * Registra un nuevo usuario en la base de datos.
+     *
+     * @param usuario El objeto Usuario a registrar.
+     * @return true si el registro fue exitoso, false en caso contrario.
+     */
     public boolean registrar(Usuario usuario) {
         boolean exito = false;
         String sql = "INSERT INTO usuarios (nombre, correo, contrasenia) VALUES (?, ?, ?)";
@@ -80,6 +95,12 @@ public class UsuarioDAO extends Conexion {
         return exito;
     }
 
+    /**
+     * Busca un usuario por su correo electrónico.
+     *
+     * @param email El correo electrónico del usuario.
+     * @return El objeto Usuario si se encuentra, null en caso contrario.
+     */
     public Usuario buscarPorCorreo(String email) {
         Usuario usuario = null;
         String sql = "SELECT * FROM usuarios WHERE correo = ?";
@@ -114,6 +135,12 @@ public class UsuarioDAO extends Conexion {
         return usuario;
     }
 
+    /**
+     * Busca un usuario por su nombre de usuario.
+     *
+     * @param username El nombre de usuario.
+     * @return El objeto Usuario si se encuentra, null en caso contrario.
+     */
     public boolean actualizar(Usuario usuario) {
         boolean exito = false;
         String sql = "UPDATE usuarios SET nombre = ?, correo = ?, contrasenia = ? WHERE id = ?";
@@ -146,6 +173,12 @@ public class UsuarioDAO extends Conexion {
         return exito;
     }
 
+    /**
+     * Busca un usuario por su nombre de usuario.
+     *
+     * @param username El nombre de usuario.
+     * @return El objeto Usuario si se encuentra, null en caso contrario.
+     */
     public ArrayList<Usuario> obtenerTodos() {
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         String sql = "SELECT * FROM usuarios";
@@ -179,6 +212,13 @@ public class UsuarioDAO extends Conexion {
         return usuarios;
     }
 
+    /**
+     * Busca un usuario por su nombre de usuario y correo electrónico.
+     *
+     * @param username El nombre de usuario.
+     * @param correo   El correo electrónico.
+     * @return El objeto Usuario si se encuentra, null en caso contrario.
+     */
     public Usuario buscarPorUsernameYCorreo(String username, String correo) {
         Usuario usuario = null;
         String sql = "SELECT * FROM usuarios WHERE nombre = ? AND correo = ?";

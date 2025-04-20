@@ -24,6 +24,12 @@ public class RecuperarContraseniaController {
     @FXML
     private Label infoLabel;
 
+    /**
+     * Maneja la acción de enviar el correo para recuperar la contraseña.
+     * Valida los campos y busca al usuario en la base de datos.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Enviar"
+     */
     @FXML
     private void handleEnviarCorreo(ActionEvent event) {
         String username = usernameField.getText();
@@ -62,6 +68,12 @@ public class RecuperarContraseniaController {
         }
     }
 
+    /**
+     * Maneja la acción de volver a la pantalla de login.
+     * Carga la vista de login.
+     *
+     * @param event El evento generado al hacer clic en el botón de "Volver"
+     */
     @FXML
     private void handleVolverLogin(ActionEvent event) {
         try {

@@ -26,6 +26,14 @@ public class LoginController {
     @FXML
     private Label lblMensaje;
 
+    /**
+     * Maneja la acción de inicio de sesión.
+     * Valida los campos ingresados y verifica las credenciales del usuario en la
+     * base de datos.
+     * Si las credenciales son correctas, se carga la vista del menú.
+     *
+     * @param event El evento generado al hacer clic en el botón "Iniciar sesión".
+     */
     @FXML
     private void handleLogin(ActionEvent event) {
         String email = txtEmail.getText();
@@ -64,6 +72,13 @@ public class LoginController {
         }
     }
 
+    /**
+     * Maneja la acción de ir a la pantalla de registro.
+     * Este método es llamado cuando el usuario hace clic en el enlace de
+     * "Registrarse".
+     *
+     * @param event El evento generado al hacer clic en el enlace de "Registrarse".
+     */
     @FXML
     private void handleIrARegistro(ActionEvent event) {
         try {
@@ -80,6 +95,14 @@ public class LoginController {
         }
     }
 
+    /**
+     * Maneja la acción de ir a la pantalla de recuperación de contraseña.
+     * Este método es llamado cuando el usuario hace clic en el enlace de
+     * "¿Olvidaste tu contraseña?".
+     *
+     * @param event El evento generado al hacer clic en el enlace de "¿Olvidaste tu
+     *              contraseña?".
+     */
     @FXML
     private void handleIrARecuperar(ActionEvent event) {
         try {
