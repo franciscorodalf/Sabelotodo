@@ -22,11 +22,16 @@ import java.util.*;
 
 public class RuletaController {
 
-    @FXML private Label labelCategoria;
-    @FXML private Button btnGirar;
-    @FXML private Button btnJugar;
-    @FXML private Button btnVolver;
-    @FXML private ImageView ruletaImage;
+    @FXML
+    private Label labelCategoria;
+    @FXML
+    private Button btnGirar;
+    @FXML
+    private Button btnJugar;
+    @FXML
+    private Button btnVolver;
+    @FXML
+    private ImageView ruletaImage;
 
     private Usuario usuario;
     private List<Categoria> categoriasRestantes;
@@ -59,7 +64,8 @@ public class RuletaController {
 
     @FXML
     private void handleGirarCategoria() {
-        if (!validarGiro()) return;
+        if (!validarGiro())
+            return;
 
         prepararGiro();
         iniciarAnimacion();
@@ -92,13 +98,13 @@ public class RuletaController {
 
         // Seleccionamos la categoría al inicio para asegurarnos de que no sea null
         categoriaSeleccionada = categoriasRestantes.get(random.nextInt(categoriasRestantes.size()));
-        
+
         // Configurar rotación de la ruleta
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(3), ruletaImage);
         rotateTransition.setByAngle((360 * 8) + (random.nextDouble() * 360));
         rotateTransition.setCycleCount(1);
         rotateTransition.setInterpolator(Interpolator.EASE_OUT);
-        
+
         rotateTransition.setOnFinished(event -> {
             timeline.stop();
             Sonido.detenerSonidoRuleta(); // Detener el sonido cuando la ruleta pare
@@ -107,25 +113,23 @@ public class RuletaController {
             btnGirar.setVisible(false);
         });
 
-        final int[] ciclos = {0};
+        final int[] ciclos = { 0 };
         double duracionTotal = 3000; // 3 segundos en milisegundos
         double intervalo = duracionTotal / TOTAL_GIROS;
 
         timeline.getKeyFrames().add(
-            new KeyFrame(Duration.millis(intervalo), event -> {
-                if (ciclos[0] < TOTAL_GIROS) {
-                    Categoria randomCategoria = categoriasRestantes.get(
-                        random.nextInt(categoriasRestantes.size())
-                    );
-                    labelCategoria.setText(randomCategoria.getNombre());
-                    
-                    if (ciclos[0] == TOTAL_GIROS - 1) {
-                        categoriaSeleccionada = randomCategoria;
+                new KeyFrame(Duration.millis(intervalo), event -> {
+                    if (ciclos[0] < TOTAL_GIROS) {
+                        Categoria randomCategoria = categoriasRestantes.get(
+                                random.nextInt(categoriasRestantes.size()));
+                        labelCategoria.setText(randomCategoria.getNombre());
+
+                        if (ciclos[0] == TOTAL_GIROS - 1) {
+                            categoriaSeleccionada = randomCategoria;
+                        }
                     }
-                }
-                ciclos[0]++;
-            })
-        );
+                    ciclos[0]++;
+                }));
 
         // Iniciamos ambas animaciones
         rotateTransition.play();
