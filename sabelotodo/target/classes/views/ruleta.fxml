@@ -2,15 +2,22 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.RuletaController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.RuletaController">
 
     <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
 
         <!-- Título -->
         <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Gira la ruleta" />
+      <ImageView fx:id="ruletaImage" fitHeight="343.0" fitWidth="287.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ruleta.png" />
+         </image>
+      </ImageView>
 
         <!-- Categoría que gira -->
         <Label fx:id="labelCategoria" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a2a2a;" text="Categoría" />
@@ -25,4 +32,9 @@
         <Button fx:id="btnVolver" maxWidth="200.0" onAction="#handleVolverMenu" text="Volver al menú" />
 
     </VBox>
+   <ImageView fitHeight="51.0" fitWidth="157.0" layoutX="224.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../images/marcador.png" />
+      </image>
+   </ImageView>
 </AnchorPane>
