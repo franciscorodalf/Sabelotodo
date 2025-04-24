@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.util.Duration;
+import es.franciscorodalf.sabelotodo.frontend.util.AnimacionUtil;
 
 import java.io.IOException;
 
@@ -26,6 +27,12 @@ public class EditarPerfilController {
     private Label lblMensaje;
 
     private Usuario usuario;
+
+    @FXML
+    public void initialize() {
+        if (txtNombre != null) AnimacionUtil.aplicarAnimacionEntrada(txtNombre);
+        if (txtCorreo != null) AnimacionUtil.aplicarAnimacionEntrada(txtCorreo);
+    }
 
     /**
      * Establece el usuario cuyo perfil será editado.
@@ -53,16 +60,12 @@ public class EditarPerfilController {
         String nuevoCorreo = txtCorreo.getText().trim();
 
         if (ValidadorDatosUtil.esCampoVacio(nuevoNombre) || ValidadorDatosUtil.esCampoVacio(nuevoCorreo)) {
-            lblMensaje.setText("Por favor, completa todos los campos.");
-            lblMensaje.setStyle("-fx-text-fill: red;");
-            lblMensaje.setVisible(true);
+            mostrarMensaje("Por favor, completa todos los campos.", true);
             return;
         }
 
         if (!ValidadorDatosUtil.esEmailValido(nuevoCorreo)) {
-            lblMensaje.setText("El correo no tiene un formato válido.");
-            lblMensaje.setStyle("-fx-text-fill: red;");
-            lblMensaje.setVisible(true);
+            mostrarMensaje("El correo no tiene un formato válido.", true);
             return;
         }
 
@@ -73,18 +76,26 @@ public class EditarPerfilController {
         boolean exito = usuarioDAO.actualizar(usuario);
 
         if (exito) {
-            lblMensaje.setText("¡Perfil actualizado con éxito!");
-            lblMensaje.setStyle("-fx-text-fill: green;");
-            lblMensaje.setVisible(true);
+            mostrarMensaje("¡Perfil actualizado con éxito!", false);
 
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(e -> volverAlMenu(event));
             delay.play();
         } else {
-            lblMensaje.setText("Error al actualizar perfil.");
-            lblMensaje.setStyle("-fx-text-fill: red;");
-            lblMensaje.setVisible(true);
+            mostrarMensaje("Error al actualizar perfil.", true);
         }
+    }
+
+    @FXML
+    private void handleCancelar(ActionEvent event) {
+        volverAlMenu(event);
+    }
+
+    private void mostrarMensaje(String mensaje, boolean esError) {
+        lblMensaje.setText(mensaje);
+        lblMensaje.setStyle(esError ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
+        lblMensaje.setVisible(true);
+        AnimacionUtil.aplicarAnimacionError(lblMensaje);
     }
 
     /**

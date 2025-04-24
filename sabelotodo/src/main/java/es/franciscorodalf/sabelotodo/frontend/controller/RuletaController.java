@@ -15,6 +15,7 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Node;
+import es.franciscorodalf.sabelotodo.frontend.util.AnimacionUtil;
 
 import java.io.IOException;
 import java.util.*;
@@ -24,6 +25,7 @@ public class RuletaController {
     @FXML private Label labelCategoria;
     @FXML private Button btnGirar;
     @FXML private Button btnJugar;
+    @FXML private Button btnVolver;
     @FXML private ImageView ruletaImage;
 
     private Usuario usuario;
@@ -39,6 +41,10 @@ public class RuletaController {
             ruletaImage.setRotate(0);
             ruletaImage.setRotationAxis(Rotate.Z_AXIS);
         }
+        AnimacionUtil.aplicarAnimacionBoton(btnGirar);
+        AnimacionUtil.aplicarAnimacionBoton(btnJugar);
+        AnimacionUtil.aplicarAnimacionBoton(btnVolver);
+        AnimacionUtil.aplicarAnimacionEntrada(ruletaImage);
     }
 
     public void setUsuario(Usuario usuario) {
@@ -81,6 +87,9 @@ public class RuletaController {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
 
+        // Reproducir sonido de la ruleta
+        Sonido.reproducirSonidoRuleta();
+
         // Seleccionamos la categoría al inicio para asegurarnos de que no sea null
         categoriaSeleccionada = categoriasRestantes.get(random.nextInt(categoriasRestantes.size()));
         
@@ -92,6 +101,7 @@ public class RuletaController {
         
         rotateTransition.setOnFinished(event -> {
             timeline.stop();
+            Sonido.detenerSonidoRuleta(); // Detener el sonido cuando la ruleta pare
             labelCategoria.setText(categoriaSeleccionada.getNombre()); // Aseguramos que muestre la categoría final
             btnJugar.setVisible(true);
             btnGirar.setVisible(false);

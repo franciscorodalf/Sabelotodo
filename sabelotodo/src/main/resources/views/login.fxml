@@ -20,13 +20,13 @@
 
         <Label fx:id="lblMensaje" text="" textFill="red" visible="false" />
 
-        <Button maxWidth="250.0" onAction="#handleLogin" text="Iniciar sesión" />
+        <Button fx:id="btnLogin" maxWidth="250.0" onAction="#handleLogin" text="Iniciar sesión" />
 
         <Hyperlink onAction="#handleIrARecuperar" text="¿Olvidaste tu contraseña?" />
 
         <Separator maxWidth="250.0" />
 
-        <Button maxWidth="250.0" onAction="#handleIrARegistro" text="Registrarse" />
+        <Button fx:id="btnRegistro" maxWidth="250.0" onAction="#handleIrARegistro" text="Registrarse" />
         
     </VBox>
 </AnchorPane>

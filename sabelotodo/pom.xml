@@ -50,6 +50,13 @@
             <version>${javafx.version}</version>
         </dependency>
 
+        <!-- JavaFX Media para sonidos -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
         <!-- ControlsFX para componentes avanzados -->
         <dependency>
             <groupId>org.controlsfx</groupId>
@@ -70,9 +77,32 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- JavaFX Base -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        
+        <!-- Asegurarse de que todos los módulos de JavaFX están incluidos -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -93,6 +123,10 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>es.franciscorodalf.sabelotodo.Main</mainClass>
+                            <options>
+                                <option>--add-modules</option>
+                                <option>javafx.controls,javafx.fxml,javafx.media,javafx.base,javafx.graphics</option>
+                            </options>
                         </configuration>
                         <goals>
                             <goal>run</goal>

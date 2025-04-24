@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.util.List;
@@ -71,13 +72,10 @@ public class MenuController {
     private void handleEditarPerfil(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/editar-usuario.fxml"));
-            Scene scene = new Scene(loader.load());
-
-            EditarPerfilController controller = loader.getController();
-            controller.setUsuario(usuario);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
+            Parent root = loader.load();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

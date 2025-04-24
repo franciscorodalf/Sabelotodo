@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="500.0" prefWidth="450.0" stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.EditarPerfilController">
+<AnchorPane prefHeight="500.0" prefWidth="450.0" stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="es.franciscorodalf.sabelotodo.frontend.controller.EditarUsuarioController">
 
     <VBox alignment="CENTER" layoutX="50.0" layoutY="30.0" prefWidth="350.0" spacing="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
         
         <Label style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Editar Perfil" />
 
-        <TextField fx:id="nombreField" promptText="Nuevo nombre de usuario" />
-        <TextField fx:id="correoField" promptText="Nuevo correo electrónico" />
+        <TextField fx:id="nombreTextField" promptText="Nuevo nombre de usuario" />
+        <TextField fx:id="emailTextField" promptText="Nuevo correo electrónico" />
 
         <PasswordField fx:id="contraseniaActualField" promptText="Contraseña actual" />
         <PasswordField fx:id="nuevaContraseniaField" promptText="Nueva contraseña" />

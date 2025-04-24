@@ -4,6 +4,7 @@ import es.franciscorodalf.sabelotodo.backend.dao.UsuarioDAO;
 import es.franciscorodalf.sabelotodo.backend.model.Usuario;
 import es.franciscorodalf.sabelotodo.backend.util.ValidadorDatosUtil;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import es.franciscorodalf.sabelotodo.frontend.util.AnimacionUtil;
 
 import java.io.IOException;
 
@@ -25,6 +27,28 @@ public class LoginController {
 
     @FXML
     private Label lblMensaje;
+
+    @FXML
+    private Button btnLogin;
+
+    @FXML
+    private Button btnRegistro;
+
+    @FXML
+    public void initialize() {
+        if (txtEmail != null) {
+            AnimacionUtil.aplicarAnimacionEntrada(txtEmail);
+        }
+        if (txtPassword != null) {
+            AnimacionUtil.aplicarAnimacionEntrada(txtPassword);
+        }
+        if (btnLogin != null) {
+            AnimacionUtil.aplicarAnimacionBoton(btnLogin);
+        }
+        if (btnRegistro != null) {
+            AnimacionUtil.aplicarAnimacionBoton(btnRegistro);
+        }
+    }
 
     /**
      * Maneja la acción de inicio de sesión.
@@ -42,9 +66,13 @@ public class LoginController {
         if (ValidadorDatosUtil.esCampoVacio(email) || ValidadorDatosUtil.esCampoVacio(password)) {
             lblMensaje.setText("Por favor completa todos los campos.");
             lblMensaje.setVisible(true);
+            AnimacionUtil.aplicarAnimacionError(lblMensaje);
+            return;
         } else if (!ValidadorDatosUtil.esEmailValido(email)) {
             lblMensaje.setText("El correo no tiene un formato válido.");
             lblMensaje.setVisible(true);
+            AnimacionUtil.aplicarAnimacionError(lblMensaje);
+            return;
         } else {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             Usuario usuario = usuarioDAO.login(email, password);
@@ -63,11 +91,13 @@ public class LoginController {
                 } catch (IOException e) {
                     lblMensaje.setText("No se pudo cargar el menú.");
                     lblMensaje.setVisible(true);
+                    AnimacionUtil.aplicarAnimacionError(lblMensaje);
                     e.printStackTrace();
                 }
             } else {
                 lblMensaje.setText("Correo o contraseña incorrectos.");
                 lblMensaje.setVisible(true);
+                AnimacionUtil.aplicarAnimacionError(lblMensaje);
             }
         }
     }

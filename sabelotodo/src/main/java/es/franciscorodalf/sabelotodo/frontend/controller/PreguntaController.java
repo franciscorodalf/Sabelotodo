@@ -7,6 +7,8 @@ import es.franciscorodalf.sabelotodo.backend.model.Categoria;
 import es.franciscorodalf.sabelotodo.backend.model.Pregunta;
 import es.franciscorodalf.sabelotodo.backend.model.Usuario;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PreguntaController {
 
@@ -29,6 +32,8 @@ public class PreguntaController {
     private Label lblPregunta;
     @FXML
     private Label lblResultado;
+    @FXML
+    private Label lblTiempo;
 
     @FXML
     private Button btnA;
@@ -38,11 +43,25 @@ public class PreguntaController {
     private Button btnC;
     @FXML
     private Button btnD;
+    @FXML
+    private Button btn5050;
+    @FXML
+    private Button btnTiempoExtra;
 
     private Usuario usuario;
     private Categoria categoria;
     private List<Categoria> categoriasRestantes;
     private Pregunta pregunta;
+
+    private Timeline timeline;
+    private int tiempoRestante = 15;
+    private boolean comodin5050Usado = false;
+    private boolean comodinTiempoUsado = false;
+
+    @FXML
+    public void initialize() {
+        iniciarTemporizador();
+    }
 
     /**
      * Establece el usuario y la categoría seleccionada.
@@ -104,6 +123,7 @@ public class PreguntaController {
      */
     @FXML
     private void handleRespuesta(ActionEvent event) {
+        timeline.stop(); // Detener el temporizador cuando responda
         Button boton = (Button) event.getSource();
         String respuesta = boton.getText();
 
@@ -127,6 +147,7 @@ public class PreguntaController {
         }
 
         if (respuesta.trim().equalsIgnoreCase(respuestaCorrecta.trim())) {
+            Sonido.reproducirSonidoCorrecto();
             lblResultado.setText("✅ ¡Correcto!");
             lblResultado.setStyle("-fx-text-fill: green;");
             lblResultado.setVisible(true);
@@ -159,6 +180,68 @@ public class PreguntaController {
             PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
             delay.setOnFinished(e -> volverAlMenu());
             delay.play();
+        }
+    }
+
+    private void iniciarTemporizador() {
+        timeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), event -> {
+                tiempoRestante--;
+                lblTiempo.setText(String.format("Tiempo: %ds", tiempoRestante));
+                
+                if (tiempoRestante <= 0) {
+                    timeline.stop();
+                    handleTiempoAgotado();
+                }
+            })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    private void handleTiempoAgotado() {
+        desactivarBotones();
+        lblResultado.setText("❌ ¡Se acabó el tiempo!");
+        lblResultado.setVisible(true);
+        
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(e -> volverAlMenu());
+        delay.play();
+    }
+
+    @FXML
+    private void handle5050() {
+        if (comodin5050Usado) return;
+        
+        comodin5050Usado = true;
+        btn5050.setDisable(true);
+        
+        List<Button> botonesIncorrectos = Arrays.asList(btnA, btnB, btnC, btnD)
+            .stream()
+            .filter(btn -> !btn.getText().equals(obtenerRespuestaCorrecta()))
+            .collect(Collectors.toList());
+        
+        Collections.shuffle(botonesIncorrectos);
+        botonesIncorrectos.subList(0, 2).forEach(btn -> btn.setVisible(false));
+    }
+
+    @FXML
+    private void handleTiempoExtra() {
+        if (comodinTiempoUsado) return;
+        
+        comodinTiempoUsado = true;
+        btnTiempoExtra.setDisable(true);
+        tiempoRestante += 30;
+        lblTiempo.setText(String.format("Tiempo: %ds", tiempoRestante));
+    }
+
+    private String obtenerRespuestaCorrecta() {
+        switch (pregunta.getRespuestaCorrecta()) {
+            case "A": return pregunta.getOpcionA();
+            case "B": return pregunta.getOpcionB();
+            case "C": return pregunta.getOpcionC();
+            case "D": return pregunta.getOpcionD();
+            default: return "";
         }
     }
 
