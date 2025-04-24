@@ -171,16 +171,21 @@ public class PreguntaController {
             delay.play();
 
         } else {
-            lblResultado.setText("❌ Respuesta incorrecta. La correcta era: " + respuestaCorrecta);
-            lblResultado.setStyle("-fx-text-fill: red;");
-            lblResultado.setVisible(true);
-
-            new PartidaDAO().registrarPartida(usuario.getId(), 0, 0);
-
-            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
-            delay.setOnFinished(e -> volverAlMenu());
-            delay.play();
+            handleRespuestaIncorrecta();
         }
+    }
+
+    private void handleRespuestaIncorrecta() {
+        Sonido.reproducirSonidoFallo();
+        lblResultado.setText("❌ Respuesta incorrecta. La correcta era: " + obtenerRespuestaCorrecta());
+        lblResultado.setStyle("-fx-text-fill: red;");
+        lblResultado.setVisible(true);
+
+        new PartidaDAO().registrarPartida(usuario.getId(), 0, 0);
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
+        delay.setOnFinished(e -> volverAlMenu());
+        delay.play();
     }
 
     private void iniciarTemporizador() {
