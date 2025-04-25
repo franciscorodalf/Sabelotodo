@@ -20,8 +20,13 @@ import es.franciscorodalf.sabelotodo.frontend.util.AnimacionUtil;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Controlador para la vista de la ruleta del juego.
+ * Maneja la lógica de girar la ruleta y seleccionar categorías.
+ */
 public class RuletaController {
 
+    // Elementos de la interfaz FXML
     @FXML
     private Label labelCategoria;
     @FXML
@@ -33,13 +38,18 @@ public class RuletaController {
     @FXML
     private ImageView ruletaImage;
 
+    // Variables de estado y configuración
     private Usuario usuario;
     private List<Categoria> categoriasRestantes;
     private Categoria categoriaSeleccionada;
     private boolean ruletaGirada = false;
-    private static final int TOTAL_GIROS = 40;
-    private static final Duration DURACION_GIRO = Duration.millis(80);
+    private static final int TOTAL_GIROS = 40;  // Número total de giros antes de detenerse
+    private static final Duration DURACION_GIRO = Duration.millis(80);  // Duración de cada giro
 
+    /**
+     * Inicializa el controlador.
+     * Configura la rotación inicial de la ruleta y aplica animaciones a los botones.
+     */
     @FXML
     public void initialize() {
         if (ruletaImage != null) {
@@ -52,16 +62,28 @@ public class RuletaController {
         AnimacionUtil.aplicarAnimacionEntrada(ruletaImage);
     }
 
+    /**
+     * Establece el usuario actual y carga las categorías disponibles.
+     * @param usuario Usuario actual del juego
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         CategoriaDAO dao = new CategoriaDAO();
         this.categoriasRestantes = new ArrayList<>(dao.obtenerTodas());
     }
 
+    /**
+     * Actualiza la lista de categorías restantes.
+     * @param categorias Lista de categorías disponibles
+     */
     public void setCategoriasRestantes(List<Categoria> categorias) {
         this.categoriasRestantes = categorias;
     }
 
+    /**
+     * Maneja el evento de girar la ruleta.
+     * Valida si se puede girar y comienza la animación.
+     */
     @FXML
     private void handleGirarCategoria() {
         if (!validarGiro())
@@ -71,6 +93,10 @@ public class RuletaController {
         iniciarAnimacion();
     }
 
+    /**
+     * Valida si la ruleta puede girar.
+     * @return true si la ruleta puede girar, false en caso contrario
+     */
     private boolean validarGiro() {
         if (ruletaGirada || categoriasRestantes == null || categoriasRestantes.isEmpty()) {
             if (categoriasRestantes.isEmpty()) {
@@ -82,12 +108,19 @@ public class RuletaController {
         return true;
     }
 
+    /**
+     * Prepara la interfaz para el giro de la ruleta.
+     */
     private void prepararGiro() {
         ruletaGirada = true;
         btnGirar.setDisable(true);
         btnJugar.setVisible(false);
     }
 
+    /**
+     * Inicia la animación de la ruleta.
+     * Incluye la rotación visual, el sonido y la selección aleatoria de categorías.
+     */
     private void iniciarAnimacion() {
         Random random = new Random();
         Timeline timeline = new Timeline();
@@ -136,6 +169,11 @@ public class RuletaController {
         timeline.play();
     }
 
+    /**
+     * Maneja el evento de comenzar el juego.
+     * Carga la vista de preguntas con la categoría seleccionada.
+     * @param event Evento que disparó la acción
+     */
     @FXML
     private void handleJugar(ActionEvent event) {
         try {
@@ -157,6 +195,10 @@ public class RuletaController {
         }
     }
 
+    /**
+     * Maneja el evento de volver al menú principal.
+     * @param event Evento que disparó la acción
+     */
     @FXML
     private void handleVolverMenu(ActionEvent event) {
         try {
@@ -172,6 +214,11 @@ public class RuletaController {
         }
     }
 
+    /**
+     * Utilidad para cambiar entre diferentes escenas.
+     * @param event Evento que disparó el cambio de escena
+     * @param scene Nueva escena a mostrar
+     */
     private void cambiarEscena(ActionEvent event, Scene scene) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

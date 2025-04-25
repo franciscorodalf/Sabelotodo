@@ -60,31 +60,40 @@ public class LoginController {
      */
     @FXML
     private void handleLogin(ActionEvent event) {
+        // Obtener los valores de los campos de entrada
         String email = txtEmail.getText();
         String password = txtPassword.getText();
 
+        // Validar campos vacíos
         if (ValidadorDatosUtil.esCampoVacio(email) || ValidadorDatosUtil.esCampoVacio(password)) {
             lblMensaje.setText("Por favor completa todos los campos.");
             lblMensaje.setVisible(true);
             AnimacionUtil.aplicarAnimacionError(lblMensaje);
             return;
-        } else if (!ValidadorDatosUtil.esEmailValido(email)) {
+        } 
+        // Validar formato de email
+        else if (!ValidadorDatosUtil.esEmailValido(email)) {
             lblMensaje.setText("El correo no tiene un formato válido.");
             lblMensaje.setVisible(true);
             AnimacionUtil.aplicarAnimacionError(lblMensaje);
             return;
         } else {
+            // Intentar autenticar al usuario
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             Usuario usuario = usuarioDAO.login(email, password);
 
+            // Si la autenticación es exitosa
             if (usuario != null) {
                 try {
+                    // Cargar la vista del menú principal
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/menu.fxml"));
                     Scene scene = new Scene(loader.load());
 
+                    // Configurar el controlador del menú con el usuario autenticado
                     MenuController controller = loader.getController();
                     controller.setUsuario(usuario);
 
+                    // Cambiar a la escena del menú
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();

@@ -11,28 +11,43 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la vista de edición de usuario.
+ * Permite modificar el nombre de usuario y el email.
+ */
 public class EditarUsuarioController implements Initializable {
     
+    // Elementos de la interfaz FXML
     @FXML
-    private TextField nombreTextField;
-    
+    private TextField nombreTextField;    // Campo para el nombre de usuario
     @FXML
-    private TextField emailTextField;
+    private TextField emailTextField;     // Campo para el email
     
-    private Usuario usuarioActual;
-    private UsuarioDAO usuarioDAO;
+    // Variables de estado
+    private Usuario usuarioActual;        // Usuario que se está editando
+    private UsuarioDAO usuarioDAO;        // DAO para operaciones con la base de datos
     
+    /**
+     * Inicializa el controlador.
+     * Crea una nueva instancia del DAO de usuarios.
+     */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        // Inicialización de componentes si es necesario
         usuarioDAO = new UsuarioDAO();
     }
     
+    /**
+     * Establece el usuario a editar y carga sus datos en el formulario.
+     * @param usuario Usuario que se va a editar
+     */
     public void setUsuario(Usuario usuario) {
         this.usuarioActual = usuario;
         cargarDatosUsuario();
     }
     
+    /**
+     * Carga los datos del usuario en los campos del formulario.
+     */
     private void cargarDatosUsuario() {
         if (usuarioActual != null) {
             nombreTextField.setText(usuarioActual.getUsername());
@@ -40,6 +55,11 @@ public class EditarUsuarioController implements Initializable {
         }
     }
     
+    /**
+     * Maneja el evento de guardar los cambios del usuario.
+     * Valida los campos y actualiza los datos en la base de datos.
+     * @param event Evento del botón guardar
+     */
     @FXML
     private void handleGuardar(ActionEvent event) {
         if (validarCampos()) {
@@ -57,11 +77,21 @@ public class EditarUsuarioController implements Initializable {
         }
     }
     
+    /**
+     * Maneja el evento de cancelar la edición.
+     * Cierra la ventana sin guardar cambios.
+     * @param event Evento del botón cancelar
+     */
     @FXML
     private void handleCancelar(ActionEvent event) {
         cerrarVentana(event);
     }
     
+    /**
+     * Valida que los campos del formulario sean correctos.
+     * Verifica que no estén vacíos y que el email tenga formato válido.
+     * @return true si los campos son válidos, false en caso contrario
+     */
     private boolean validarCampos() {
         String nombre = nombreTextField.getText().trim();
         String email = emailTextField.getText().trim();
@@ -79,6 +109,12 @@ public class EditarUsuarioController implements Initializable {
         return true;
     }
     
+    /**
+     * Muestra un mensaje al usuario usando un diálogo de alerta.
+     * @param titulo Título de la alerta
+     * @param contenido Mensaje a mostrar
+     * @param tipo Tipo de alerta (ERROR, INFORMATION, etc)
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -87,6 +123,10 @@ public class EditarUsuarioController implements Initializable {
         alert.showAndWait();
     }
     
+    /**
+     * Cierra la ventana actual.
+     * @param event Evento que disparó el cierre
+     */
     private void cerrarVentana(ActionEvent event) {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.close();

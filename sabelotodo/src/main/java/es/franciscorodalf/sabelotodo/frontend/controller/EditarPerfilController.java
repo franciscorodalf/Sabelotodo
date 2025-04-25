@@ -17,19 +17,30 @@ import es.franciscorodalf.sabelotodo.frontend.util.AnimacionUtil;
 
 import java.io.IOException;
 
+/**
+ * Controlador para la vista de edición de perfil de usuario.
+ * Permite modificar el nombre de usuario y correo electrónico.
+ */
 public class EditarPerfilController {
 
+    // Elementos de la interfaz FXML
     @FXML
-    private TextField txtNombre;
+    private TextField txtNombre;      // Campo para el nombre de usuario
     @FXML
-    private TextField txtCorreo;
+    private TextField txtCorreo;      // Campo para el correo electrónico
     @FXML
-    private Label lblMensaje;
+    private Label lblMensaje;        // Etiqueta para mostrar mensajes al usuario
 
+    // Usuario actual que se está editando
     private Usuario usuario;
 
+    /**
+     * Inicializa el controlador.
+     * Aplica animaciones de entrada a los campos de texto.
+     */
     @FXML
     public void initialize() {
+        // Aplicar animaciones solo si los campos existen
         if (txtNombre != null) AnimacionUtil.aplicarAnimacionEntrada(txtNombre);
         if (txtCorreo != null) AnimacionUtil.aplicarAnimacionEntrada(txtCorreo);
     }

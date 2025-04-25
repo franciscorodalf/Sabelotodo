@@ -112,25 +112,24 @@ public class PreguntaController {
     }
 
     /**
-     * Maneja la acción de respuesta a la pregunta.
-     * Desactiva los botones de respuesta y verifica si la respuesta es correcta.
-     * Si es correcta, muestra un mensaje de éxito y avanza a la siguiente
-     * categoría.
-     * Si es incorrecta, muestra un mensaje de error y vuelve al menú principal.
-     *
-     * @param event El evento generado al hacer clic en uno de los botones de
-     *              respuesta.
+     * Maneja la respuesta del usuario a la pregunta actual.
+     * 
+     * @param event El evento del botón de respuesta seleccionado
      */
     @FXML
     private void handleRespuesta(ActionEvent event) {
-        timeline.stop(); // Detener el temporizador cuando responda
+        // Detener el temporizador al recibir una respuesta
+        timeline.stop();
+        
+        // Obtener el botón presionado y su texto
         Button boton = (Button) event.getSource();
         String respuesta = boton.getText();
 
+        // Deshabilitar todos los botones para evitar múltiples respuestas
         desactivarBotones();
 
+        // Obtener la respuesta correcta basada en la letra (A, B, C, D)
         String respuestaCorrecta = "";
-
         switch (pregunta.getRespuestaCorrecta()) {
             case "A":
                 respuestaCorrecta = pregunta.getOpcionA();
@@ -146,7 +145,9 @@ public class PreguntaController {
                 break;
         }
 
+        // Comparar la respuesta del usuario con la correcta
         if (respuesta.trim().equalsIgnoreCase(respuestaCorrecta.trim())) {
+            // Procesar respuesta correcta
             Sonido.reproducirSonidoCorrecto();
             lblResultado.setText("✅ ¡Correcto!");
             lblResultado.setStyle("-fx-text-fill: green;");
@@ -171,6 +172,7 @@ public class PreguntaController {
             delay.play();
 
         } else {
+            // Procesar respuesta incorrecta
             handleRespuestaIncorrecta();
         }
     }

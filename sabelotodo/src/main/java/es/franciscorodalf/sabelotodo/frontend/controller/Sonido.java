@@ -4,12 +4,21 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.net.URL;
 
+/**
+ * Clase que maneja la reproducción de efectos de sonido en el juego.
+ * Incluye sonidos para la ruleta, respuestas correctas e incorrectas.
+ */
 public class Sonido {
+    // Reproductores de medios para cada tipo de sonido
     private static MediaPlayer ruletaPlayer;
     private static MediaPlayer correctoPlayer;
     private static MediaPlayer falloPlayer;
-    private static boolean isPlaying = false;
+    private static boolean isPlaying = false; // Control para evitar superposición de sonidos de ruleta
     
+    /**
+     * Reproduce el sonido de la ruleta girando.
+     * Evita la reproducción múltiple simultánea.
+     */
     public static void reproducirSonidoRuleta() {
         try {
             if (isPlaying) {
@@ -42,6 +51,10 @@ public class Sonido {
         }
     }
     
+    /**
+     * Reproduce el sonido de respuesta correcta.
+     * Detiene y limpia cualquier reproducción anterior.
+     */
     public static void reproducirSonidoCorrecto() {
         try {
             URL resource = Sonido.class.getResource("/sonido/correctoSonido.mp3");
@@ -71,6 +84,10 @@ public class Sonido {
         }
     }
     
+    /**
+     * Reproduce el sonido de respuesta incorrecta.
+     * Detiene y limpia cualquier reproducción anterior.
+     */
     public static void reproducirSonidoFallo() {
         try {
             URL resource = Sonido.class.getResource("/sonido/falloSonido.mp3");
@@ -100,6 +117,10 @@ public class Sonido {
         }
     }
     
+    /**
+     * Detiene la reproducción del sonido de la ruleta.
+     * Libera los recursos asociados al reproductor.
+     */
     public static void detenerSonidoRuleta() {
         if (ruletaPlayer != null) {
             try {
