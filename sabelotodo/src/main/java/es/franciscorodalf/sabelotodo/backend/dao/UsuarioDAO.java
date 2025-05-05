@@ -255,7 +255,7 @@ public class UsuarioDAO extends Conexion {
     }
 
     public void eliminar(Integer id) throws SQLException {
-        String sql = "DELETE FROM usuarios WHERE id = ?"; // Corregido de "usuario" a "usuarios" para mantener consistencia
+        String sql = "DELETE FROM usuarios WHERE id = ?";
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
