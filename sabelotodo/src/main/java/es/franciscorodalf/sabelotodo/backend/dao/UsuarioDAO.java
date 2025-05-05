@@ -136,10 +136,10 @@ public class UsuarioDAO extends Conexion {
     }
 
     /**
-     * Busca un usuario por su nombre de usuario.
+     * Actualiza los datos de un usuario en la base de datos.
      *
-     * @param username El nombre de usuario.
-     * @return El objeto Usuario si se encuentra, null en caso contrario.
+     * @param usuario El objeto Usuario con los datos actualizados.
+     * @return true si la actualización fue exitosa, false en caso contrario.
      */
     public boolean actualizar(Usuario usuario) {
         boolean exito = false;
@@ -252,6 +252,20 @@ public class UsuarioDAO extends Conexion {
         }
 
         return usuario;
+    }
+
+    public void eliminar(Integer id) throws SQLException {
+        String sql = "DELETE FROM usuarios WHERE id = ?"; // Corregido de "usuario" a "usuarios" para mantener consistencia
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } finally {
+            try {
+                cerrar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
